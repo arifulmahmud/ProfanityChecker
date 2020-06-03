@@ -12,13 +12,13 @@ namespace ProfanityAPI.Controllers
 {
     public class ProfanityController : ApiController
     {
-        public string Checker()
+        public string ProfanityChecker()
         {
             int iUploadedCount = 0;
             try
             {
                 string responseText = "";
-                string phyUploadPath = System.Web.Hosting.HostingEnvironment.MapPath("/Uploaded_Files/");
+                string phyUploadPath = System.Web.Hosting.HostingEnvironment.MapPath("/TempFiles/");
                 HttpFileCollection fileCollection = HttpContext.Current.Request.Files;
                 // check the file count
                 for (int fCount = 0; fCount <= fileCollection.Count - 1; fCount++)
