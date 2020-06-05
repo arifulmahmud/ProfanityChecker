@@ -7,9 +7,12 @@ namespace ProfanityAPI
 {
     public class ProfanityFilter
     {
-        public bool CheckProfanity(string checkStr)
+        public void CheckProfanity(string checkStr, out bool hasBadWords, out Int32 badWordCount)
         {
-            bool hasBadWords = false;
+            hasBadWords = false;
+            badWordCount = 0;
+            List<string> badWordList = new List<string>();
+
             string[] inStrArray = checkStr.Split(new char[] { ' ' });
             string[] words = this.ProfanityArray();
             // LOOP THROUGH WORDS IN MESSAGE
@@ -22,15 +25,20 @@ namespace ProfanityAPI
                     //if (inStrArray[x].toString().toLowerCase().equals(words[i]))
                     if (inStrArray[x].ToLower() == words[i].ToLower())
                     {
-                        hasBadWords = true;
-                        break;
+                        if (!badWordList.Contains(words[i]))
+                        {
+                            badWordList.Add(words[i]);
+                            badWordCount += 1;
+                        }
+                        //break;
+                        // need to continue the process till the last word is checked
                     }
                 }
                 // IF FLAG IS SET, BREAK OUT OF OUTER LOOP
-                if (hasBadWords == true) break;
+                // if (hasBadWords == true) break;
             }
-
-            return hasBadWords;
+            if (badWordCount > 0)
+                hasBadWords = true;
         }
         private string[] ProfanityArray()
         {

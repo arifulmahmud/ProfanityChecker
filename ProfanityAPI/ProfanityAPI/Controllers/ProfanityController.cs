@@ -29,18 +29,25 @@ namespace ProfanityAPI.Controllers
                     if (Path.GetExtension(postedFile.FileName) == ".txt")
                     {
                         if (postedFile.ContentLength > 0)
-                        {                            // implement the profinity check logic here
+                        {
+                            // get the file text content via GetPostedFileContent method 
+
                             string oFileContent = GetPostedFileContent(postedFile);
                             System.Diagnostics.Debug.Write(oFileContent);
 
                             // initiate profinity checker class and check the file content
+                            bool hasBadWords;
+                            Int32 badWordCount;
                             ProfanityFilter oProfinity = new ProfanityFilter();
-                            if (oProfinity.CheckProfanity(oFileContent))
+                            oProfinity.CheckProfanity(oFileContent, out hasBadWords, out badWordCount);
+                            if (hasBadWords)
                             {
-                                System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File contains bad words");
+                                System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File contains bad words, Word Count: " + badWordCount);
+                                responseText = postedFile.FileName + " File contains "+ badWordCount + " bad words !!!!!";
                             }
                             else
                             {
+                                responseText = postedFile.FileName + " File is clean";
                                 System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File is clean");
                             }
                             iUploadedCount += 1;
