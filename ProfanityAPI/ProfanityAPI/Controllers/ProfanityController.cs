@@ -24,18 +24,13 @@ namespace ProfanityAPI.Controllers
                 for (int fCount = 0; fCount <= fileCollection.Count - 1; fCount++)
                 {
                     HttpPostedFile postedFile = fileCollection[fCount];
-                    //checking if the uploaded file's extenion is text format, only supported format
+
+                    //checking if the uploaded file's extension, only text format is supported for now !!!
                     if (Path.GetExtension(postedFile.FileName) == ".txt")
                     {
                         if (postedFile.ContentLength > 0)
-                        {
-                            string fullFilePath = phyUploadPath + Path.GetFileName(postedFile.FileName);
-                            postedFile.SaveAs(fullFilePath);
-                            iUploadedCount += 1;
-                            responseText = "Successfully uploaded " + iUploadedCount + " file";
-
-                            // implement the profinity check logic here
-                            string oFileContent = GetFileContent(fullFilePath);
+                        {                            // implement the profinity check logic here
+                            string oFileContent = GetPostedFileContent(postedFile);
                             System.Diagnostics.Debug.Write(oFileContent);
 
                             // initiate profinity checker class and check the file content
@@ -48,6 +43,7 @@ namespace ProfanityAPI.Controllers
                             {
                                 System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File is clean");
                             }
+                            iUploadedCount += 1;
                         }
                         else
                         {
@@ -68,15 +64,17 @@ namespace ProfanityAPI.Controllers
             }
         }
 
-        private string GetFileContent(string fullFilePath)
+        private string GetPostedFileContent(HttpPostedFile postedFile)
         {
-            string oFileTexts;
-            var fileStream = new FileStream(fullFilePath, FileMode.Open, FileAccess.Read);
-            using (var strmReader = new StreamReader(fileStream, Encoding.UTF8))
+            string oTextContent;
+            // read the file content using posted file input stream
+            using (var strmReader = new StreamReader(postedFile.InputStream, Encoding.UTF8))
             {
-                oFileTexts = strmReader.ReadToEnd();
+                oTextContent = strmReader.ReadToEnd();
             }
-            return oFileTexts;
+
+            // retunrs the whole text contenet of the file.
+            return oTextContent;
         }
     }
 }
