@@ -15,10 +15,10 @@ namespace ProfanityAPI
 
             string[] inStrArray = checkStr.Split(new char[] { ' ' });
             string[] words = this.ProfanityArray();
-            // LOOP THROUGH WORDS IN MESSAGE
+            // Loop through words
             for (int x = 0; x < inStrArray.Length; x++)
             {
-                // LOOP THROUGH PROFANITY WORDS
+                // Loop through profanity words from the array 
                 for (int i = 0; i < words.Length; i++)
                 {
                     // IF WORD IS PROFANITY, SET FLAG AND BREAK OUT OF LOOP
