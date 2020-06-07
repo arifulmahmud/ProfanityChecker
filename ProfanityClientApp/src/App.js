@@ -96,7 +96,8 @@ class App extends Component {
       })
       .catch((err) => {
         // then print response status
-        toast.error("upload fail");
+        toast.error("Upload fail");
+        console.log(err.data);
       });
   };
 

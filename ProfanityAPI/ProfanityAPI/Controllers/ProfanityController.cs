@@ -8,13 +8,14 @@ using System.Text;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Results;
 
 namespace ProfanityAPI.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProfanityController : ApiController
     {
-        public string ProfanityChecker()
+        public IHttpActionResult ProfanityChecker()
         {
             int iUploadedCount = 0;
             try
@@ -35,7 +36,7 @@ namespace ProfanityAPI.Controllers
                             // get the file text content via GetPostedFileContent method 
 
                             string oFileContent = GetPostedFileContent(postedFile);
-                            System.Diagnostics.Debug.Write(oFileContent);
+                            //System.Diagnostics.Debug.Write(oFileContent);
 
                             // initiate profinity checker class and check the file content
                             bool hasBadWords;
@@ -45,7 +46,7 @@ namespace ProfanityAPI.Controllers
                             if (hasBadWords)
                             {
                                 System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File contains bad words, Word Count: " + badWordCount);
-                                responseText = postedFile.FileName + " File contains "+ badWordCount + " bad words !!!!!";
+                                responseText = " File contains "+ badWordCount + " bad words !!";
                             }
                             else
                             {
@@ -65,11 +66,11 @@ namespace ProfanityAPI.Controllers
                     }
                 }
                 //retunrn the response with formated string
-                return responseText;
+                return Ok(responseText);
             }
             catch (Exception ex)
             {
-                return "Error, Description : " + ex.ToString();
+                return new ExceptionResult(ex, this);
             }
         }
 
