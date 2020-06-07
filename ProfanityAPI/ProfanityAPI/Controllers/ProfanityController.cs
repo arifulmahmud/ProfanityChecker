@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -15,65 +13,70 @@ namespace ProfanityAPI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProfanityController : ApiController
     {
-        public IHttpActionResult ProfanityChecker()
+        public HttpResponseMessage Post()
         {
             int iUploadedCount = 0;
             try
             {
                 string responseText = "";
-                string phyUploadPath = System.Web.Hosting.HostingEnvironment.MapPath("/TempFiles/");
                 HttpFileCollection fileCollection = HttpContext.Current.Request.Files;
-                // check the file count
-                for (int fCount = 0; fCount <= fileCollection.Count - 1; fCount++)
+                // check if the request contained any file (File Count)
+                if (fileCollection.Count > 0)
                 {
-                    HttpPostedFile postedFile = fileCollection[fCount];
-
-                    //checking if the uploaded file's extension, only text format is supported for now !!!
-                    if (Path.GetExtension(postedFile.FileName) == ".txt")
+                    for (int fCount = 0; fCount <= fileCollection.Count - 1; fCount++)
                     {
-                        if (postedFile.ContentLength > 0)
+                        HttpPostedFile postedFile = fileCollection[fCount];
+
+                        //checking if the uploaded file's extension, only text format is supported for now !!!
+                        if (Path.GetExtension(postedFile.FileName) == ".txt")
                         {
-                            // get the file text content via GetPostedFileContent method 
-
-                            string oFileContent = GetPostedFileContent(postedFile);
-                            //System.Diagnostics.Debug.Write(oFileContent);
-
-                            // initiate profinity checker class and check the file content
-                            bool hasBadWords;
-                            Int32 badWordCount;
-                            ProfanityFilter oProfinity = new ProfanityFilter();
-                            oProfinity.CheckProfanity(oFileContent, out hasBadWords, out badWordCount);
-                            if (hasBadWords)
+                            if (postedFile.ContentLength > 0)
                             {
-                                System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File contains bad words, Word Count: " + badWordCount);
-                                responseText = " File contains "+ badWordCount + " bad words !!";
+                                // get the file text content via GetPostedFileContent method 
+
+                                string oFileContent = GetPostedFileContent(postedFile);
+                                //System.Diagnostics.Debug.Write(oFileContent);
+
+                                // initiate profinity checker class and check the file content
+
+                                ProfanityFilter oProfinity = new ProfanityFilter();
+                                oProfinity.CheckProfanity(oFileContent, out bool hasBadWords, out Int32 badWordCount);
+                                if (hasBadWords)
+                                {
+                                    System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File contains bad words, Word Count: " + badWordCount);
+                                    responseText = "File contains " + badWordCount + " bad words !!";
+                                }
+                                else
+                                {
+                                    responseText = postedFile.FileName + "File is clean";
+                                    System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File is clean");
+                                }
+                                iUploadedCount += 1;
                             }
                             else
                             {
-                                responseText = postedFile.FileName + " File is clean";
-                                System.Diagnostics.Debug.WriteLine(postedFile.FileName + " File is clean");
+                                responseText = "Can't upload file with no content";
                             }
-                            iUploadedCount += 1;
                         }
                         else
                         {
-                            responseText = "Can't upload file with no content";
+                            responseText = "Only text file is supported now";
                         }
                     }
-                    else
-                    {
-                        responseText = "Only text file is supported now";
-                    }
+                }
+                else
+                {
+                    responseText = "No File is posted. Please add file in request body";
                 }
                 //retunrn the response with formated string
-                return Ok(responseText);
+                var response = Request.CreateResponse(HttpStatusCode.OK, responseText);
+                return response;
             }
             catch (Exception ex)
             {
-                return new ExceptionResult(ex, this);
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
-
         private string GetPostedFileContent(HttpPostedFile postedFile)
         {
             string oTextContent;
