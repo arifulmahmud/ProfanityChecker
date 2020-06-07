@@ -91,7 +91,7 @@ class App extends Component {
       .then((res) => {
         // then print response status if the status is OK or 200
         if(res.statusText === "OK"){
-          toast.success("upload success, response: " + res.data);
+          toast("Upload success, response: " + res.data);
         }
       })
       .catch((err) => {
@@ -105,18 +105,12 @@ class App extends Component {
       <div class="container">
         <div class="row">
           <div class="col-md-6 offset-md-3 col-sm-offset-1">
+          <ToastContainer position="top-center"/>
             <div class="form-group files color">
               <label>Profanity Chekcker : Upload Your File</label>
-              <input
-                type="file"
-                name="file"
-                class="form-control"
-                multiple=""
-                onChange={this.onChangeHandler}
-              />
+              <input type="file" name="file" class="form-control" multiple="" onChange={this.onChangeHandler}/>
             </div>
             <div class="form-group">
-              <ToastContainer />
               <Progress max="100" color="success" value={this.state.loaded}>
                 {Math.round(this.state.loaded, 2)}%
               </Progress>
