@@ -58,7 +58,7 @@ namespace ProfanityAPI.Controllers
                             }
                             else
                             {
-                                responseText = "Can't upload file with no content";
+                                responseText = "The uploded file has no content, empty!";
                             }
                         }
                         else
