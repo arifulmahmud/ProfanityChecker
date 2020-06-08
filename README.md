@@ -1,5 +1,5 @@
 # ProfanityChecker
-A project to check profanity words in a uploaded file, ie. Text is the supported format at this moment. This project contains two sub-projects. Each project contains individual README.md file with futher instructions on running the projects.
+A project to check profanity words in a uploaded file, ie. Text is the supported format at this moment. This project contains two sub-projects. Each project contains individual README.md file with futher instructions on running and building the solution.
 
 ### Run ProfanityAPI project
 
