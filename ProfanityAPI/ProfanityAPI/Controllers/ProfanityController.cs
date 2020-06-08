@@ -13,6 +13,11 @@ namespace ProfanityAPI.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProfanityController : ApiController
     {
+        /// <summary>This method handles the post request to the API controller,
+        /// Utilizes ProfanityFilter class to filter bad words from the provided file,
+        /// Only text file is supported at this moment.
+        /// Returns response as HttpResponseMessage, after checking the provided file.
+        /// </summary>
         public HttpResponseMessage Post()
         {
             int iUploadedCount = 0;
@@ -77,6 +82,13 @@ namespace ProfanityAPI.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, ex.ToString());
             }
         }
+
+        /// <summary>This method handles the file posted to API controller,
+        /// Extracts the raw content of the file, ie. text file's content.
+        /// Utilizes .NET frameworkf StreamReader() for extracting the content.
+        /// Returns oTextContent, string.
+        /// </summary>
+        /// <param name="postedFile">HttpPostedFile as parameter</param>
         private string GetPostedFileContent(HttpPostedFile postedFile)
         {
             string oTextContent;
