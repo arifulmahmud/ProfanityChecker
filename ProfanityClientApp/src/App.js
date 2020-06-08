@@ -78,10 +78,11 @@ class App extends Component {
   // for uploading file to API endpoint, after successul validation of checkFileType() and checkFileSize()
   onClickHandler = () => {
     const data = new FormData();
+    const apiEndpoint = 'http://profanityapp.azurewebsites.net/api/profanity';
     for (var x = 0; x < this.state.selectedFile.length; x++) {
       data.append("file", this.state.selectedFile[x]);
     }
-    axios.post("http://localhost/ProfanityAPI/api/Profanity", data, {
+    axios.post(apiEndpoint, data, {
         onUploadProgress: (ProgressEvent) => {
           this.setState({
             loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
