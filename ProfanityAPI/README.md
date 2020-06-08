@@ -22,3 +22,4 @@ Copy the folder `ProfanityChecker\ProfanityAPI` in your prefered location and Go
 - `"Demo_File1.txt: File contains 2 bad word or phrase !!"`
 - `"Demo_File2.txt: File is clean""`
 - `The uploded file has no content, empty!`
+- `500 Internal Error, with description!`
