@@ -3,14 +3,16 @@ This a sample client app for consuming profanity API : [http://profanityapp.azur
 ### Setup the environment for running the application 
 Make sure you have a recent version of Node.js installed.<br />
 Copy the folder in your prefered location and open up a terminal window and `cd ProfanityClientApp`.<br />
-In the project directory, you can run: Install required dependencies `npm install -all`
+In the project directory, you can run: Install required dependencies `npm install -all`.
 
 
 ### Run the application with `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000] to view it in the browser.<br />
-Upload a file, ie. a text file to check the profanity. const apiEndpoint is defined to live API endpoint running in Azure : [http://profanityapp.azurewebsites.net/api/profanity]
+Upload a file, ie. a text file to check the profanity. 
+const apiEndpoint is defined to live API endpoint running in Azure : [http://profanityapp.azurewebsites.net/api/profanity]. <br />
+Change `const apiEndpoint` in App.js to check the client app with local API endpoint. ie. `https://localhost:44364/api/profanity`
 
 ### `npm run build`
 
