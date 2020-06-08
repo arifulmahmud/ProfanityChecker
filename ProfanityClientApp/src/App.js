@@ -90,14 +90,17 @@ class App extends Component {
         },
       })
       .then((res) => {
-        // then print response status if the status is OK or 200
+        // then print response status if the status is OK (200) or print the error (500)
         if(res.statusText === "OK"){
-          toast("Upload success, response: " + res.data);
+          toast.success("Upload Success. " + res.data);
+        }
+        else{
+          toast.error("Something went wrong at server, Error: " + res.data);
         }
       })
       .catch((err) => {
         // then print response status
-        toast.error("Upload fail");
+        toast.error("Upload Failed");
         console.log(err.data);
       });
   };
@@ -109,7 +112,7 @@ class App extends Component {
           <div class="col-md-6 offset-md-3 col-sm-offset-1">
           <ToastContainer position="top-center"/>
             <div class="form-group files color">
-              <label>Profanity Chekcker : Upload Your File</label>
+              <label class="font-weight-bold">Upload file to check profanity</label>
               <input type="file" name="file" class="form-control" multiple="" onChange={this.onChangeHandler}/>
             </div>
             <div class="form-group">

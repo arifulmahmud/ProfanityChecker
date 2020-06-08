@@ -48,11 +48,11 @@ namespace ProfanityAPI.Controllers
                                 oProfinity.CheckProfanity(oFileContent, out bool hasBadWords, out Int32 badWordCount);
                                 if (hasBadWords)
                                 {
-                                    responseText = postedFile.FileName + ": File contains " + badWordCount + " bad word or phrase !!";
+                                    responseText = postedFile.FileName + ", file contains " + badWordCount + " bad word or phrase !!";
                                 }
                                 else
                                 {
-                                    responseText = postedFile.FileName + ": File is clean";
+                                    responseText = postedFile.FileName + ", file is clean";
                                 }
                                 iUploadedCount += 1;
                             }

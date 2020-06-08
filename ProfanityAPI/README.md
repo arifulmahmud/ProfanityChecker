@@ -19,7 +19,8 @@ Copy the folder `ProfanityChecker\ProfanityAPI` in your prefered location and Go
 - The api endpoint will check the uploaded file and return result accordingly. 
 
 ### Expected results
-- `"Demo_File1.txt: File contains 2 bad word or phrase !!"`
-- `"Demo_File2.txt: File is clean""`
+- `Demo_File1.txt, file contains 2 bad word or phrase !!`
+- `Demo_File2.txt, file is clean`
 - `The uploded file has no content, empty!`
+- `No File is posted. Please add file in request body`
 - `500 Internal Error, with description!`
