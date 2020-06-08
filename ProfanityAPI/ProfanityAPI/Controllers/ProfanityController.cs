@@ -48,7 +48,7 @@ namespace ProfanityAPI.Controllers
                                 oProfinity.CheckProfanity(oFileContent, out bool hasBadWords, out Int32 badWordCount);
                                 if (hasBadWords)
                                 {
-                                    responseText = postedFile.FileName + ": File contains " + badWordCount + " bad words/phrase !!";
+                                    responseText = postedFile.FileName + ": File contains " + badWordCount + " bad word or phrase !!";
                                 }
                                 else
                                 {
@@ -83,7 +83,7 @@ namespace ProfanityAPI.Controllers
 
         /// <summary>This method handles the file posted to API controller,
         /// Extracts the raw content of the file, ie. text file's content.
-        /// Utilizes .NET frameworkf StreamReader() for extracting the content.
+        /// Utilizes .NET framework StreamReader() for extracting the content.
         /// Returns oTextContent, string.
         /// </summary>
         /// <param name="postedFile">HttpPostedFile as parameter</param>
