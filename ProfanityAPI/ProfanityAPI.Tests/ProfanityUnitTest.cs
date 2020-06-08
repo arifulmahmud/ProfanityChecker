@@ -15,7 +15,7 @@ namespace ProfanityAPI.Tests
     public class ProfanityUnitTest
     {
         [TestMethod]
-        public void APIPostTest_ExpectsError()
+        public void APIPostTest_ExpectsErrorWithEmptyData()
         {
             // Arrange
             var controller = new ProfanityController();
@@ -28,5 +28,20 @@ namespace ProfanityAPI.Tests
             Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
             //Assert.IsNotNull(response);
         }
+
+        public void APIGetTest_ExpectNotSupported()
+        {
+            // Arrange
+            var controller = new ProfanityController();
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
+
+            // Act
+            var response = controller.Post();
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode);
+            //Assert.IsNotNull(response);
+        }
+
     }
 }
