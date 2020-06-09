@@ -18,6 +18,7 @@ namespace ProfanityAPI.Controllers
         /// Only text file is supported at this moment.
         /// Returns response as HttpResponseMessage, after checking the provided file.
         /// </summary>
+        [HttpPost]
         public HttpResponseMessage Post()
         {
             int iUploadedCount = 0;
