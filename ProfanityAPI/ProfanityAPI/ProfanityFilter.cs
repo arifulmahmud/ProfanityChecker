@@ -26,7 +26,7 @@ namespace ProfanityAPI
             // Loop through words
             for (int x = 0; x < inStrArray.Length; x++)
             {
-                // Loop through profanity words from the list array 
+                // Loop through profanity words from the list array
                 for (int i = 0; i < profanityWords.Count; i++)
                 {
                     // if the word is profanity, add to badWordList and increase the counter
