@@ -92,7 +92,7 @@ class App extends Component {
       .then((res) => {
         // then print response status if the status is OK (200) or print the error (500)
         if(res.statusText === "OK"){
-          toast.success("Upload Success. " + res.data);
+          toast.success("Upload success. " + res.data);
         }
         else{
           toast.error("Something went wrong at server, Error: " + res.data);
