@@ -16,7 +16,8 @@ Copy the folder `ProfanityChecker\ProfanityAPI` in your prefered location and Go
 ### Test the API
 - [POST http://profanityapp.azurewebsites.net/api/profanity]
 - Add a sample file (.txt) in form-data.
-- The api endpoint will check the uploaded file and return result accordingly. 
+- The api endpoint will check profanity words in the uploaded file and return result.
+- Profanity words are stored as JSON array in project folder: [Assets/ProfanityWords.json], add more words/phrase in the file 
 
 ### Expected results
 - `Demo_File1.txt, file contains 2 bad word or phrase !!`
